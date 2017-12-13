@@ -44,10 +44,7 @@ import simulacrum.typeclass
    * scala> val s: Semigroup[List[Int]] = SemigroupK[List].algebra[Int]
    * }}}
    */
-  def algebra[A]: Semigroup[F[A]] =
-    new Semigroup[F[A]] {
-      def combine(x: F[A], y: F[A]): F[A] = self.combineK(x, y)
-    }
+  def algebra[A]: Semigroup[F[A]] = Semigroup.instance(self.combineK)
 
   /**
    * "Compose" with a `G[_]` type to form a `SemigroupK` for `λ[α => F[G[α]]]`.

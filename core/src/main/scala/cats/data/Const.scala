@@ -105,9 +105,8 @@ private[data] sealed abstract class ConstInstances extends ConstInstances0 {
 }
 
 private[data] sealed abstract class ConstInstances0 extends ConstInstances1 {
-  implicit def catsDataSemigroupForConst[A: Semigroup, B]: Semigroup[Const[A, B]] = new Semigroup[Const[A, B]] {
-    def combine(x: Const[A, B], y: Const[A, B]): Const[A, B] = x combine y
-  }
+  implicit def catsDataSemigroupForConst[A: Semigroup, B]: Semigroup[Const[A, B]] =
+    Semigroup.instance(_ combine _)
 
   implicit def catsDataContravariantForConst[C]: Contravariant[Const[C, ?]] = new Contravariant[Const[C, ?]] {
     override def contramap[A, B](fa: Const[C, A])(f: (B) => A): Const[C, B] =
